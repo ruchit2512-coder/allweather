@@ -33,7 +33,7 @@ def generalized_steps(x, x_cond, seq, model, b, eta=0.):
             at = compute_alpha(b, t.long())
             at_next = compute_alpha(b, next_t.long())
             # xt = xs[-1].to('cuda')
-            xt = xs[-1].to('cuda')
+            xt = xs[-1]
 
             et = model(torch.cat([x_cond, xt], dim=1), t)
             x0_t = (xt - et * (1 - at).sqrt()) / at.sqrt()
@@ -62,7 +62,8 @@ def generalized_steps_overlapping(x, x_cond, seq, model, b, eta=0., corners=None
             next_t = (torch.ones(n) * j).to(x.device)
             at = compute_alpha(b, t.long())
             at_next = compute_alpha(b, next_t.long())
-            xt = xs[-1].to('cuda')
+            # xt = xs[-1].to('cuda')
+            xt = xs[-1]
             et_output = torch.zeros_like(x_cond, device=x.device)
             
             if manual_batching:
