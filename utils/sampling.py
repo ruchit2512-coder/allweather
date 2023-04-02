@@ -32,6 +32,7 @@ def generalized_steps(x, x_cond, seq, model, b, eta=0.):
             next_t = (torch.ones(n) * j).to(x.device)
             at = compute_alpha(b, t.long())
             at_next = compute_alpha(b, next_t.long())
+            # xt = xs[-1].to('cuda')
             xt = xs[-1].to('cuda')
 
             et = model(torch.cat([x_cond, xt], dim=1), t)
